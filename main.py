@@ -1,7 +1,10 @@
+
 import os
 import httpx
 
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -11,7 +14,6 @@ app = FastAPI(
     version="0.1.0"
 )
 
-# Frontend access. We will restrict this to our actual website later.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -21,21 +23,19 @@ app.add_middleware(
 )
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+FRONTEND = Path(__file__).parent / "frontend" / "index.html"
 
 
 class GenerateRequest(BaseModel):
     prompt: str = Field(min_length=3, max_length=12000)
-    language: str = Field(default="python", max_length=50)
+    language: str = Field(default="Python", max_length=50)
 
 
 @app.get("/")
 async def home():
-    return {
-        "name": "CodeForge AI",
-        "status": "online",
-        "version": "0.1.0",
-        "message": "Your AI software engineering platform"
-    }
+    if not FRONTEND.is_file():
+        raise HTTPException(status_code=404, detail="Frontend not found")
+    return FileResponse(FRONTEND)
 
 
 @app.get("/health")
@@ -45,7 +45,6 @@ async def health():
 
 @app.post("/api/generate")
 async def generate_code(request: GenerateRequest):
-
     api_key = os.getenv("OPENROUTER_API_KEY")
     model = os.getenv("OPENROUTER_MODEL", "")
 
@@ -55,7 +54,6 @@ async def generate_code(request: GenerateRequest):
             detail="OpenRouter API key has not been configured."
         )
 
-    # Strictly prevent accidental use of paid models.
     if not model.endswith(":free"):
         raise HTTPException(
             status_code=503,
@@ -71,7 +69,7 @@ async def generate_code(request: GenerateRequest):
                     "You are CodeForge AI, an expert software engineering "
                     "assistant. Generate clear, maintainable and secure code. "
                     "Explain important implementation decisions. "
-                    "Never claim that code is error-free without testing."
+                    "Never claim code is error-free without testing."
                 )
             },
             {
@@ -102,10 +100,7 @@ async def generate_code(request: GenerateRequest):
         if response.status_code != 200:
             raise HTTPException(
                 status_code=502,
-                detail=(
-                    "The AI provider could not complete the request. "
-                    "Check model availability and free-tier limits."
-                )
+                detail="AI provider request failed. Check model availability and free-tier limits."
             )
 
         data = response.json()
@@ -120,12 +115,10 @@ async def generate_code(request: GenerateRequest):
     except httpx.TimeoutException:
         raise HTTPException(
             status_code=504,
-            detail="The AI request timed out. Please try again."
+            detail="The AI request timed out."
         )
-
     except HTTPException:
         raise
-
     except Exception:
         raise HTTPException(
             status_code=500,
