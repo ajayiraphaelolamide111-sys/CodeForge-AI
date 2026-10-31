@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeForge AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1020;color:#edf2ff;
+ font-family:Arial,sans-serif;min-height:100vh
+}
+header{
+ padding:20px 6%;border-bottom:1px solid #263149;
+ display:flex;justify-content:space-between;align-items:center
+}
+.logo{font-size:23px;font-weight:bold;color:#7cdbad}
+.status{color:#9baac4;font-size:12px}
+main{max-width:950px;margin:55px auto;padding:20px}
+h1{text-align:center;font-size:36px;margin-bottom:10px}
+.subtitle{text-align:center;color:#a6b2c9}
+.panel{
+ background:#151e33;border:1px solid #2b3853;
+ border-radius:14px;padding:22px;margin-top:35px
+}
+label{display:block;margin:14px 0 8px;color:#b9c6dc}
+textarea,select{
+ width:100%;padding:14px;border-radius:9px;
+ border:1px solid #354563;background:#0d1528;
+ color:white;font-size:15px
+}
+textarea{height:150px;resize:vertical}
+button{
+ border:0;border-radius:9px;padding:13px 20px;
+ background:#35c58b;color:#071a13;
+ font-weight:bold;font-size:15px;cursor:pointer
+}
+button:disabled{opacity:.5;cursor:wait}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.secondary{background:#263651;color:white}
+#result{
+ margin-top:25px;background:#080e1b;padding:18px;
+ border-radius:10px;white-space:pre-wrap;
+ overflow-wrap:anywhere;min-height:80px
+}
+pre{white-space:pre-wrap;overflow-wrap:anywhere}
+footer{text-align:center;color:#8290a9;padding:35px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">⚒ CodeForge AI</div>
+ <div class="status">AI ENGINEERING WORKSPACE</div>
+</header>
+
+<main>
+ <h1>Build Something Powerful.</h1>
+ <p class="subtitle">
+ Describe your idea. Let AI help you turn it into code.
+ </p>
+
+ <section class="panel">
+  <label for="language">Programming language</label>
+  <select id="language">
+   <option>Python</option>
+   <option>JavaScript</option>
+   <option>HTML/CSS/JavaScript</option>
+   <option>Java</option>
+   <option>C++</option>
+   <option>C</option>
+   <option>PHP</option>
+   <option>Go</option>
+   <option>Rust</option>
+   <option>SQL</option>
+  </select>
+
+  <label for="prompt">What do you want to build?</label>
+  <textarea id="prompt"
+   placeholder="Example: Build a Snake game with scoring and mobile touch controls..."></textarea>
+
+  <div class="actions">
+   <button id="generate" onclick="generateCode()">
+    ✨ Generate Code
+   </button>
+   <button class="secondary" onclick="clearOutput()">
+    Clear
+   </button>
+  </div>
+
+  <div id="result">Your generated code will appear here.</div>
+ </section>
+</main>
+
+<footer>CodeForge AI · Your software engineering workspace</footer>
+
+<script>
+async function generateCode(){
+ const prompt=document.getElementById("prompt").value.trim();
+ const language=document.getElementById("language").value;
+ const result=document.getElementById("result");
+ const button=document.getElementById("generate");
+
+ if(prompt.length<3){
+  result.textContent="Please describe what you want to build.";
+  return;
+ }
+
+ button.disabled=true;
+ button.textContent="Generating...";
+ result.textContent="Connecting to CodeForge AI...";
+
+ try{
+  const response=await fetch("/api/generate",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({prompt,language})
+  });
+
+  const data=await response.json();
+
+  if(!response.ok){
+   throw new Error(data.detail || "Generation failed.");
+  }
+
+  result.textContent=data.generated_code;
+ }catch(error){
+  result.textContent="Error: "+error.message;
+ }finally{
+  button.disabled=false;
+  button.textContent="✨ Generate Code";
+ }
+}
+
+function clearOutput(){
+ document.getElementById("prompt").value="";
+ document.getElementById("result").textContent=
+  "Your generated code will appear here.";
+}
+</script>
+</body>
+</html>
