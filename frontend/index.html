@@ -4,139 +4,848 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CodeForge AI</title>
+<meta name="theme-color" content="#080d18">
+<title>CodeForge AI — Engineering Workspace</title>
+
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;background:#0b1020;color:#edf2ff;
- font-family:Arial,sans-serif;min-height:100vh
+:root {
+ --bg:#080d18;
+ --surface:#101827;
+ --surface2:#141f31;
+ --surface3:#1b2940;
+ --border:#26364e;
+ --text:#edf3ff;
+ --muted:#8b9bb5;
+ --green:#55e6a5;
+ --blue:#70aaff;
+ --danger:#ff737d;
 }
-header{
- padding:20px 6%;border-bottom:1px solid #263149;
- display:flex;justify-content:space-between;align-items:center
+
+* {box-sizing:border-box}
+
+body {
+ margin:0;
+ background:
+ radial-gradient(ellipse at 50% -20%,#173052 0%,transparent 55%),
+ var(--bg);
+ color:var(--text);
+ font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
+ min-height:100vh;
 }
-.logo{font-size:23px;font-weight:bold;color:#7cdbad}
-.status{color:#9baac4;font-size:12px}
-main{max-width:950px;margin:55px auto;padding:20px}
-h1{text-align:center;font-size:36px;margin-bottom:10px}
-.subtitle{text-align:center;color:#a6b2c9}
-.panel{
- background:#151e33;border:1px solid #2b3853;
- border-radius:14px;padding:22px;margin-top:35px
+
+button,textarea,select {font:inherit}
+button {cursor:pointer}
+
+header {
+ height:72px;
+ padding:0 5%;
+ border-bottom:1px solid var(--border);
+ background:rgba(8,13,24,.88);
+ backdrop-filter:blur(16px);
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ position:sticky;
+ top:0;
+ z-index:5;
 }
-label{display:block;margin:14px 0 8px;color:#b9c6dc}
-textarea,select{
- width:100%;padding:14px;border-radius:9px;
- border:1px solid #354563;background:#0d1528;
- color:white;font-size:15px
+
+.brand {
+ display:flex;
+ align-items:center;
+ gap:12px;
+ font-size:19px;
+ font-weight:800;
+ letter-spacing:-.5px;
 }
-textarea{height:150px;resize:vertical}
-button{
- border:0;border-radius:9px;padding:13px 20px;
- background:#35c58b;color:#071a13;
- font-weight:bold;font-size:15px;cursor:pointer
+
+.brand-icon {
+ width:38px;
+ height:38px;
+ display:grid;
+ place-items:center;
+ border-radius:12px;
+ color:#071b14;
+ background:linear-gradient(135deg,#65f0b1,#37b98b);
+ box-shadow:0 0 25px #55e6a533;
+ font-size:20px;
 }
-button:disabled{opacity:.5;cursor:wait}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.secondary{background:#263651;color:white}
-#result{
- margin-top:25px;background:#080e1b;padding:18px;
- border-radius:10px;white-space:pre-wrap;
- overflow-wrap:anywhere;min-height:80px
+
+.brand span {color:var(--green)}
+
+.header-right {
+ display:flex;
+ align-items:center;
+ gap:9px;
+ color:var(--muted);
+ font-size:12px;
 }
-pre{white-space:pre-wrap;overflow-wrap:anywhere}
-footer{text-align:center;color:#8290a9;padding:35px;font-size:12px}
+
+.online-dot {
+ width:8px;height:8px;
+ border-radius:50%;
+ background:var(--green);
+ box-shadow:0 0 10px var(--green);
+}
+
+.layout {
+ max-width:1120px;
+ margin:auto;
+ padding:55px 24px 75px;
+}
+
+.hero {text-align:center;margin-bottom:35px}
+
+.eyebrow {
+ color:var(--green);
+ font-size:11px;
+ letter-spacing:2px;
+ font-weight:800;
+ text-transform:uppercase;
+}
+
+h1 {
+ font-size:clamp(30px,5vw,49px);
+ letter-spacing:-2px;
+ margin:15px 0 10px;
+}
+
+.hero p {
+ color:var(--muted);
+ font-size:15px;
+ line-height:1.7;
+ margin:0;
+}
+
+.feature-row {
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:22px;
+}
+
+.feature {
+ border:1px solid var(--border);
+ border-radius:30px;
+ padding:8px 13px;
+ background:#111b2b;
+ color:#b9c8df;
+ font-size:11px;
+}
+
+.workspace {
+ border:1px solid #2a3b55;
+ border-radius:19px;
+ background:linear-gradient(145deg,#121d2e,#0e1726);
+ box-shadow:0 25px 80px #0007;
+ overflow:hidden;
+}
+
+.workspace-top {
+ padding:18px 22px;
+ border-bottom:1px solid var(--border);
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
+}
+
+.section-title {
+ font-weight:750;
+ font-size:14px;
+}
+
+.section-subtitle {
+ color:var(--muted);
+ font-size:11px;
+ margin-top:4px;
+}
+
+.engine {
+ color:var(--green);
+ font-size:11px;
+ border:1px solid #286c50;
+ background:#123328;
+ padding:7px 10px;
+ border-radius:20px;
+}
+
+.workspace-body {padding:23px}
+
+label {
+ display:block;
+ color:#c3d0e3;
+ font-size:12px;
+ font-weight:700;
+ margin-bottom:9px;
+}
+
+select,textarea {
+ width:100%;
+ border:1px solid var(--border);
+ background:#091322;
+ color:var(--text);
+ border-radius:10px;
+ outline:none;
+}
+
+select {
+ padding:13px;
+ cursor:pointer;
+}
+
+textarea {
+ min-height:155px;
+ padding:16px;
+ resize:vertical;
+ font-size:14px;
+ line-height:1.7;
+}
+
+select:focus,textarea:focus {
+ border-color:#55b997;
+ box-shadow:0 0 0 3px #55e6a510;
+}
+
+.field {margin-bottom:23px}
+
+.upload-area {
+ border:1px dashed #425774;
+ border-radius:13px;
+ background:#0c1727;
+ padding:23px 15px;
+ text-align:center;
+ transition:.2s;
+}
+
+.upload-area.dragging {
+ border-color:var(--green);
+ background:#123127;
+}
+
+.upload-icon {
+ font-size:26px;
+ margin-bottom:8px;
+}
+
+.upload-area strong {
+ display:block;
+ font-size:13px;
+}
+
+.upload-area p {
+ color:var(--muted);
+ font-size:11px;
+ margin:7px 0 13px;
+}
+
+.upload-button {
+ display:inline-block;
+ padding:9px 15px;
+ border:1px solid #3caa7c;
+ border-radius:8px;
+ color:var(--green);
+ font-size:12px;
+ font-weight:700;
+ cursor:pointer;
+}
+
+.upload-button:hover {background:#173c30}
+
+#fileInput {display:none}
+
+.file-list {
+ display:grid;
+ gap:8px;
+ margin-top:12px;
+}
+
+.file-item {
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ padding:10px 12px;
+ border:1px solid var(--border);
+ background:#111d2d;
+ border-radius:9px;
+ font-size:12px;
+}
+
+.file-name {
+ overflow-wrap:anywhere;
+ color:#dce7f8;
+}
+
+.file-size {color:var(--muted);font-size:10px}
+
+.remove-file {
+ background:transparent;
+ color:var(--danger);
+ border:0;
+ font-size:17px;
+ padding:4px 8px;
+}
+
+.actions {
+ display:flex;
+ gap:11px;
+ flex-wrap:wrap;
+ margin-top:20px;
+}
+
+.primary,.secondary {
+ border:0;
+ border-radius:10px;
+ padding:13px 19px;
+ font-size:13px;
+ font-weight:800;
+ transition:.2s;
+}
+
+.primary {
+ background:linear-gradient(135deg,#65edb1,#32bb89);
+ color:#061b13;
+ box-shadow:0 5px 20px #35c58b22;
+}
+
+.primary:hover {transform:translateY(-1px);filter:brightness(1.08)}
+.primary:disabled {opacity:.5;cursor:wait;transform:none}
+
+.secondary {
+ background:#253650;
+ color:#dce8fa;
+ border:1px solid #344967;
+}
+
+.secondary:hover {background:#304461}
+
+#resultSection {display:none;margin-top:25px}
+
+.result-top {
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ flex-wrap:wrap;
+ gap:12px;
+ margin-bottom:12px;
+}
+
+.result-label {
+ font-weight:800;
+ font-size:14px;
+}
+
+.result-status {
+ color:var(--green);
+ font-size:11px;
+}
+
+#result {
+ margin:0;
+ padding:20px;
+ background:#070d17;
+ border:1px solid #26364e;
+ border-radius:12px;
+ color:#dce8fa;
+ white-space:pre-wrap;
+ overflow-wrap:anywhere;
+ overflow-x:auto;
+ min-height:130px;
+ max-height:650px;
+ overflow-y:auto;
+ font-family:Consolas,Monaco,monospace;
+ font-size:13px;
+ line-height:1.75;
+ tab-size:4;
+}
+
+.result-actions {
+ display:flex;
+ gap:9px;
+ flex-wrap:wrap;
+ margin-top:12px;
+}
+
+.result-actions button {
+ flex:1;
+ min-width:115px;
+}
+
+#notice {
+ min-height:20px;
+ margin-top:10px;
+ font-size:12px;
+ color:var(--green);
+}
+
+#notice.error {color:var(--danger)}
+
+.tips {
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:13px;
+ margin-top:25px;
+}
+
+.tip {
+ border:1px solid var(--border);
+ border-radius:12px;
+ padding:17px;
+ background:#101a2a;
+}
+
+.tip-icon {font-size:19px}
+.tip strong {display:block;font-size:12px;margin:9px 0 5px}
+.tip p {color:var(--muted);font-size:11px;line-height:1.6;margin:0}
+
+footer {
+ border-top:1px solid var(--border);
+ text-align:center;
+ color:var(--muted);
+ font-size:11px;
+ padding:25px;
+}
+
+@media(max-width:650px) {
+ header {height:64px;padding:0 17px}
+ .brand {font-size:16px}
+ .header-right {font-size:10px}
+ .layout {padding:38px 13px 50px}
+ .workspace-body {padding:16px}
+ .workspace-top {padding:15px}
+ .tips {grid-template-columns:1fr}
+ .actions button {flex:1}
+ h1 {letter-spacing:-1.2px}
+}
 </style>
 </head>
+
 <body>
+
 <header>
- <div class="logo">⚒ CodeForge AI</div>
- <div class="status">AI ENGINEERING WORKSPACE</div>
+ <div class="brand">
+  <div class="brand-icon">⚒</div>
+  CodeForge <span>AI</span>
+ </div>
+ <div class="header-right">
+  <span class="online-dot"></span>
+  ENGINEERING WORKSPACE
+ </div>
 </header>
 
-<main>
- <h1>Build Something Powerful.</h1>
- <p class="subtitle">
- Describe your idea. Let AI help you turn it into code.
- </p>
+<main class="layout">
 
- <section class="panel">
-  <label for="language">Programming language</label>
-  <select id="language">
-   <option>Python</option>
-   <option>JavaScript</option>
-   <option>HTML/CSS/JavaScript</option>
-   <option>Java</option>
-   <option>C++</option>
-   <option>C</option>
-   <option>PHP</option>
-   <option>Go</option>
-   <option>Rust</option>
-   <option>SQL</option>
-  </select>
+ <section class="hero">
+  <div class="eyebrow">Your AI development environment</div>
+  <h1>Build. Debug. Engineer.</h1>
+  <p>
+   Turn ideas into software. Upload existing code,
+   investigate bugs and build better projects.
+  </p>
 
-  <label for="prompt">What do you want to build?</label>
-  <textarea id="prompt"
-   placeholder="Example: Build a Snake game with scoring and mobile touch controls..."></textarea>
+  <div class="feature-row">
+   <span class="feature">✦ AI Code Generation</span>
+   <span class="feature">⌘ Code Analysis</span>
+   <span class="feature">⇧ File Uploads</span>
+   <span class="feature">⚙ Engineering Assistant</span>
+  </div>
+ </section>
 
-  <div class="actions">
-   <button id="generate" onclick="generateCode()">
-    ✨ Generate Code
-   </button>
-   <button class="secondary" onclick="clearOutput()">
-    Clear
-   </button>
+ <section class="workspace">
+
+  <div class="workspace-top">
+   <div>
+    <div class="section-title">Development Workspace</div>
+    <div class="section-subtitle">Create a project or work with existing files</div>
+   </div>
+   <div class="engine">● AI ENGINE</div>
   </div>
 
-  <div id="result">Your generated code will appear here.</div>
+  <div class="workspace-body">
+
+   <div class="field">
+    <label for="language">PROGRAMMING LANGUAGE</label>
+    <select id="language">
+     <option>Python</option>
+     <option>JavaScript</option>
+     <option>HTML/CSS/JavaScript</option>
+     <option>TypeScript</option>
+     <option>Java</option>
+     <option>C++</option>
+     <option>C</option>
+     <option>PHP</option>
+     <option>Go</option>
+     <option>Rust</option>
+     <option>SQL</option>
+     <option>Bash</option>
+     <option>Other</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label for="prompt">DESCRIBE YOUR TASK</label>
+    <textarea id="prompt"
+     placeholder="Describe what you want to build, debug, explain or improve...
+
+Example: Inspect my uploaded Python project, identify bugs, explain the problems and provide corrected code."></textarea>
+   </div>
+
+   <div class="field">
+    <label>PROJECT FILES</label>
+
+    <div class="upload-area" id="dropArea">
+     <div class="upload-icon">📁</div>
+     <strong>Drop your files here</strong>
+     <p>Or browse your device to attach source code and text files.</p>
+
+     <label class="upload-button" for="fileInput">
+      + Choose Files
+     </label>
+
+     <input
+      type="file"
+      id="fileInput"
+      multiple
+      accept=".py,.js,.ts,.html,.css,.json,.txt,.md,.java,.cpp,.c,.h,.php,.go,.rs,.sql,.sh,.yaml,.yml,.xml,.toml,.ini,.log,.env.example"
+     >
+    </div>
+
+    <div id="fileList" class="file-list"></div>
+    <div class="section-subtitle" style="margin-top:9px">
+     Up to 5 files · 100 KB per file · Text-based files only
+    </div>
+   </div>
+
+   <div class="actions">
+    <button class="primary" id="generate" onclick="generateCode()">
+     ✦ Generate / Analyse
+    </button>
+
+    <button class="secondary" onclick="clearWorkspace()">
+     Clear Workspace
+    </button>
+   </div>
+
+   <section id="resultSection">
+
+    <div class="result-top">
+     <div class="result-label">AI RESPONSE</div>
+     <div class="result-status">● Response received</div>
+    </div>
+
+    <pre id="result"></pre>
+
+    <div class="result-actions">
+     <button class="primary" onclick="copyAll()">▣ Copy All</button>
+     <button class="secondary" onclick="downloadResult()">↓ Download</button>
+    </div>
+
+    <div id="notice" role="status" aria-live="polite"></div>
+
+   </section>
+
+  </div>
  </section>
+
+ <section class="tips">
+
+  <div class="tip">
+   <div class="tip-icon">⌘</div>
+   <strong>Code Generation</strong>
+   <p>Describe your application and request code in your chosen language.</p>
+  </div>
+
+  <div class="tip">
+   <div class="tip-icon">⌕</div>
+   <strong>Code Investigation</strong>
+   <p>Attach existing files and ask for debugging, explanations or improvements.</p>
+  </div>
+
+  <div class="tip">
+   <div class="tip-icon">⚙</div>
+   <strong>Engineering Assistance</strong>
+   <p>Explore architecture, algorithms, testing and secure coding practices.</p>
+  </div>
+
+ </section>
+
 </main>
 
-<footer>CodeForge AI · Your software engineering workspace</footer>
+<footer>
+ CodeForge AI · AI-powered software engineering workspace
+</footer>
 
 <script>
-async function generateCode(){
- const prompt=document.getElementById("prompt").value.trim();
- const language=document.getElementById("language").value;
- const result=document.getElementById("result");
- const button=document.getElementById("generate");
+const MAX_FILES = 5;
+const MAX_FILE_SIZE = 100 * 1024;
+const MAX_TOTAL_CHARS = 11000;
+const ALLOWED_EXTENSIONS = new Set([
+ "py","js","ts","html","css","json","txt","md",
+ "java","cpp","c","h","php","go","rs","sql",
+ "sh","yaml","yml","xml","toml","ini","log"
+]);
 
- if(prompt.length<3){
-  result.textContent="Please describe what you want to build.";
+let selectedFiles = [];
+let generatedCode = "";
+
+const fileInput = document.getElementById("fileInput");
+const dropArea = document.getElementById("dropArea");
+const fileList = document.getElementById("fileList");
+const resultSection = document.getElementById("resultSection");
+const result = document.getElementById("result");
+const notice = document.getElementById("notice");
+const generateButton = document.getElementById("generate");
+
+function showNotice(message, isError=false) {
+ notice.textContent = message;
+ notice.classList.toggle("error", isError);
+}
+
+function formatSize(bytes) {
+ return bytes < 1024
+  ? bytes + " B"
+  : (bytes / 1024).toFixed(1) + " KB";
+}
+
+function renderFiles() {
+ fileList.innerHTML = "";
+
+ selectedFiles.forEach((file,index) => {
+  const item = document.createElement("div");
+  item.className = "file-item";
+
+  const details = document.createElement("div");
+  details.style.minWidth = "0";
+
+  const name = document.createElement("div");
+  name.className = "file-name";
+  name.textContent = "📄 " + file.name;
+
+  const size = document.createElement("div");
+  size.className = "file-size";
+  size.textContent = formatSize(file.size);
+
+  details.append(name,size);
+
+  const remove = document.createElement("button");
+  remove.className = "remove-file";
+  remove.type = "button";
+  remove.textContent = "×";
+  remove.setAttribute("aria-label","Remove " + file.name);
+  remove.onclick = () => {
+   selectedFiles.splice(index,1);
+   renderFiles();
+  };
+
+  item.append(details,remove);
+  fileList.appendChild(item);
+ });
+}
+
+async function addFiles(files) {
+ for (const file of files) {
+
+  if (selectedFiles.length >= MAX_FILES) {
+   showNotice("Maximum of 5 files allowed.",true);
+   break;
+  }
+
+  const extension = file.name.split(".").pop().toLowerCase();
+
+  if (!ALLOWED_EXTENSIONS.has(extension)) {
+   showNotice("Unsupported file type: " + file.name,true);
+   continue;
+  }
+
+  if (file.size > MAX_FILE_SIZE) {
+   showNotice(file.name + " exceeds the 100 KB limit.",true);
+   continue;
+  }
+
+  if (selectedFiles.some(item => item.name === file.name)) {
+   showNotice(file.name + " is already attached.",true);
+   continue;
+  }
+
+  try {
+   const content = await file.text();
+
+   if (content.includes("\u0000")) {
+    showNotice("Binary files are not supported: " + file.name,true);
+    continue;
+   }
+
+   selectedFiles.push({
+    name:file.name,
+    size:file.size,
+    content
+   });
+
+  } catch {
+   showNotice("Could not read " + file.name,true);
+  }
+ }
+
+ renderFiles();
+}
+
+fileInput.addEventListener("change", async event => {
+ await addFiles(Array.from(event.target.files));
+ fileInput.value = "";
+});
+
+dropArea.addEventListener("dragover", event => {
+ event.preventDefault();
+ dropArea.classList.add("dragging");
+});
+
+dropArea.addEventListener("dragleave", () => {
+ dropArea.classList.remove("dragging");
+});
+
+dropArea.addEventListener("drop", async event => {
+ event.preventDefault();
+ dropArea.classList.remove("dragging");
+ await addFiles(Array.from(event.dataTransfer.files));
+});
+
+async function generateCode() {
+ const prompt = document.getElementById("prompt").value.trim();
+ const language = document.getElementById("language").value;
+
+ if (prompt.length < 3) {
+  showNotice("Please describe your task in at least 3 characters.",true);
   return;
  }
 
- button.disabled=true;
- button.textContent="Generating...";
- result.textContent="Connecting to CodeForge AI...";
+ let combinedPrompt = prompt;
 
- try{
-  const response=await fetch("/api/generate",{
+ if (selectedFiles.length) {
+  combinedPrompt += "\n\nATTACHED PROJECT FILES:\n";
+
+  for (const file of selectedFiles) {
+   combinedPrompt +=
+    "\n--- FILE: " + file.name + " ---\n" +
+    file.content + "\n";
+  }
+ }
+
+ if (combinedPrompt.length > MAX_TOTAL_CHARS) {
+  showNotice(
+   "The combined prompt and files are too large. Remove some files or shorten the prompt.",
+   true
+  );
+  return;
+ }
+
+ generateButton.disabled = true;
+ generateButton.textContent = "Analysing...";
+ generatedCode = "";
+
+ resultSection.style.display = "block";
+ result.textContent = "Connecting to CodeForge AI...";
+ showNotice("");
+
+ try {
+  const response = await fetch("/api/generate", {
    method:"POST",
    headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({prompt,language})
+   body:JSON.stringify({
+    prompt:combinedPrompt,
+    language
+   })
   });
 
-  const data=await response.json();
+  const data = await response.json();
 
-  if(!response.ok){
+  if (!response.ok) {
    throw new Error(data.detail || "Generation failed.");
   }
 
-  result.textContent=data.generated_code;
- }catch(error){
-  result.textContent="Error: "+error.message;
- }finally{
-  button.disabled=false;
-  button.textContent="✨ Generate Code";
+  if (typeof data.generated_code !== "string") {
+   throw new Error("Invalid response from AI provider.");
+  }
+
+  generatedCode = data.generated_code;
+  result.textContent = generatedCode;
+
+  showNotice("✓ AI response received successfully.");
+
+ } catch(error) {
+  result.textContent = "Error: " + error.message;
+  showNotice(error.message,true);
+
+ } finally {
+  generateButton.disabled = false;
+  generateButton.textContent = "✦ Generate / Analyse";
  }
 }
 
-function clearOutput(){
- document.getElementById("prompt").value="";
- document.getElementById("result").textContent=
-  "Your generated code will appear here.";
+async function copyAll() {
+ if (!generatedCode) {
+  showNotice("There is no generated response to copy.",true);
+  return;
+ }
+
+ try {
+  if (navigator.clipboard && window.isSecureContext) {
+   await navigator.clipboard.writeText(generatedCode);
+  } else {
+   const temporary = document.createElement("textarea");
+   temporary.value = generatedCode;
+   temporary.style.position = "fixed";
+   temporary.style.opacity = "0";
+   document.body.appendChild(temporary);
+   temporary.select();
+
+   const success = document.execCommand("copy");
+   temporary.remove();
+
+   if (!success) throw new Error("Copy failed");
+  }
+
+  showNotice("✓ Complete response copied!");
+
+ } catch {
+  showNotice("Copy failed. Try selecting the response manually.",true);
+ }
+}
+
+function downloadResult() {
+ if (!generatedCode) return;
+
+ const blob = new Blob([generatedCode], {
+  type:"text/plain;charset=utf-8"
+ });
+
+ const url = URL.createObjectURL(blob);
+ const link = document.createElement("a");
+
+ link.href = url;
+ link.download = "codeforge-response.txt";
+ document.body.appendChild(link);
+ link.click();
+ link.remove();
+
+ setTimeout(() => URL.revokeObjectURL(url),1000);
+ showNotice("Download started.");
+}
+
+function clearWorkspace() {
+ document.getElementById("prompt").value = "";
+ selectedFiles = [];
+ generatedCode = "";
+
+ renderFiles();
+
+ result.textContent = "";
+ resultSection.style.display = "none";
+
+ showNotice("");
 }
 </script>
+
 </body>
 </html>
