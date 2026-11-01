@@ -3,421 +3,334 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080d18">
 <title>CodeForge AI — Engineering Workspace</title>
 
 <style>
 :root {
- --bg:#080d18;
- --surface:#101827;
- --surface2:#141f31;
- --surface3:#1b2940;
- --border:#26364e;
- --text:#edf3ff;
- --muted:#8b9bb5;
- --green:#55e6a5;
- --blue:#70aaff;
- --danger:#ff737d;
+  --bg:#080d18;
+  --panel:#111c2d;
+  --panel2:#0b1524;
+  --border:#293b55;
+  --text:#edf3ff;
+  --muted:#91a1ba;
+  --green:#55e6a5;
+  --red:#ff737d;
 }
 
-* {box-sizing:border-box}
+* { box-sizing:border-box; }
 
 body {
- margin:0;
- background:
- radial-gradient(ellipse at 50% -20%,#173052 0%,transparent 55%),
- var(--bg);
- color:var(--text);
- font-family:Inter,system-ui,-apple-system,Arial,sans-serif;
- min-height:100vh;
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  background:radial-gradient(ellipse at 50% -20%,#19395c,transparent 55%),var(--bg);
+  font-family:Inter,system-ui,Arial,sans-serif;
 }
 
-button,textarea,select {font:inherit}
-button {cursor:pointer}
+button,textarea,select { font:inherit; }
+button { cursor:pointer; }
 
 header {
- height:72px;
- padding:0 5%;
- border-bottom:1px solid var(--border);
- background:rgba(8,13,24,.88);
- backdrop-filter:blur(16px);
- display:flex;
- justify-content:space-between;
- align-items:center;
- position:sticky;
- top:0;
- z-index:5;
+  position:sticky;
+  top:0;
+  z-index:5;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:17px 5%;
+  background:#080d18ee;
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(15px);
 }
 
 .brand {
- display:flex;
- align-items:center;
- gap:12px;
- font-size:19px;
- font-weight:800;
- letter-spacing:-.5px;
+  font-size:20px;
+  font-weight:850;
 }
 
-.brand-icon {
- width:38px;
- height:38px;
- display:grid;
- place-items:center;
- border-radius:12px;
- color:#071b14;
- background:linear-gradient(135deg,#65f0b1,#37b98b);
- box-shadow:0 0 25px #55e6a533;
- font-size:20px;
+.brand span { color:var(--green); }
+
+.status {
+  color:var(--green);
+  font-size:11px;
 }
 
-.brand span {color:var(--green)}
-
-.header-right {
- display:flex;
- align-items:center;
- gap:9px;
- color:var(--muted);
- font-size:12px;
+main {
+  width:min(100% - 28px,1000px);
+  margin:45px auto 65px;
 }
 
-.online-dot {
- width:8px;height:8px;
- border-radius:50%;
- background:var(--green);
- box-shadow:0 0 10px var(--green);
+.hero {
+  text-align:center;
+  margin-bottom:30px;
 }
-
-.layout {
- max-width:1120px;
- margin:auto;
- padding:55px 24px 75px;
-}
-
-.hero {text-align:center;margin-bottom:35px}
 
 .eyebrow {
- color:var(--green);
- font-size:11px;
- letter-spacing:2px;
- font-weight:800;
- text-transform:uppercase;
+  color:var(--green);
+  font-size:11px;
+  letter-spacing:2px;
+  font-weight:800;
 }
 
 h1 {
- font-size:clamp(30px,5vw,49px);
- letter-spacing:-2px;
- margin:15px 0 10px;
+  font-size:clamp(30px,6vw,48px);
+  letter-spacing:-1.8px;
+  margin:14px 0 10px;
 }
 
 .hero p {
- color:var(--muted);
- font-size:15px;
- line-height:1.7;
- margin:0;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
 }
 
-.feature-row {
- display:flex;
- justify-content:center;
- gap:10px;
- flex-wrap:wrap;
- margin-top:22px;
+.features {
+  display:flex;
+  justify-content:center;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:20px;
 }
 
 .feature {
- border:1px solid var(--border);
- border-radius:30px;
- padding:8px 13px;
- background:#111b2b;
- color:#b9c8df;
- font-size:11px;
+  padding:8px 12px;
+  border:1px solid var(--border);
+  border-radius:30px;
+  background:var(--panel);
+  font-size:11px;
+  color:#c6d4e8;
 }
 
 .workspace {
- border:1px solid #2a3b55;
- border-radius:19px;
- background:linear-gradient(145deg,#121d2e,#0e1726);
- box-shadow:0 25px 80px #0007;
- overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:linear-gradient(145deg,#142136,#0e1726);
+  overflow:hidden;
+  box-shadow:0 20px 65px #0007;
 }
 
-.workspace-top {
- padding:18px 22px;
- border-bottom:1px solid var(--border);
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:12px;
+.top {
+  padding:19px 22px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
 }
 
-.section-title {
- font-weight:750;
- font-size:14px;
-}
+.top strong { font-size:14px; }
 
-.section-subtitle {
- color:var(--muted);
- font-size:11px;
- margin-top:4px;
+.top small {
+  display:block;
+  color:var(--muted);
+  margin-top:5px;
 }
 
 .engine {
- color:var(--green);
- font-size:11px;
- border:1px solid #286c50;
- background:#123328;
- padding:7px 10px;
- border-radius:20px;
+  color:var(--green);
+  border:1px solid #286c50;
+  background:#123328;
+  border-radius:20px;
+  padding:7px 10px;
+  font-size:10px;
 }
 
-.workspace-body {padding:23px}
+.body { padding:22px; }
+
+.field { margin-bottom:21px; }
 
 label {
- display:block;
- color:#c3d0e3;
- font-size:12px;
- font-weight:700;
- margin-bottom:9px;
+  display:block;
+  font-size:12px;
+  font-weight:750;
+  margin-bottom:9px;
+  color:#c8d5e8;
 }
 
 select,textarea {
- width:100%;
- border:1px solid var(--border);
- background:#091322;
- color:var(--text);
- border-radius:10px;
- outline:none;
-}
-
-select {
- padding:13px;
- cursor:pointer;
-}
-
-textarea {
- min-height:155px;
- padding:16px;
- resize:vertical;
- font-size:14px;
- line-height:1.7;
+  width:100%;
+  color:var(--text);
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:13px;
+  outline:none;
 }
 
 select:focus,textarea:focus {
- border-color:#55b997;
- box-shadow:0 0 0 3px #55e6a510;
+  border-color:var(--green);
+  box-shadow:0 0 0 3px #55e6a515;
 }
 
-.field {margin-bottom:23px}
-
-.upload-area {
- border:1px dashed #425774;
- border-radius:13px;
- background:#0c1727;
- padding:23px 15px;
- text-align:center;
- transition:.2s;
+textarea {
+  min-height:145px;
+  resize:vertical;
+  line-height:1.7;
+  font-size:14px;
 }
 
-.upload-area.dragging {
- border-color:var(--green);
- background:#123127;
+.upload {
+  border:1px dashed #49617e;
+  border-radius:12px;
+  padding:22px 12px;
+  text-align:center;
+  background:var(--panel2);
 }
 
-.upload-icon {
- font-size:26px;
- margin-bottom:8px;
+.upload p {
+  color:var(--muted);
+  font-size:11px;
 }
 
-.upload-area strong {
- display:block;
- font-size:13px;
+.upload label {
+  display:inline-block;
+  color:var(--green);
+  border:1px solid #398d6b;
+  border-radius:8px;
+  padding:9px 14px;
+  cursor:pointer;
 }
 
-.upload-area p {
- color:var(--muted);
- font-size:11px;
- margin:7px 0 13px;
-}
-
-.upload-button {
- display:inline-block;
- padding:9px 15px;
- border:1px solid #3caa7c;
- border-radius:8px;
- color:var(--green);
- font-size:12px;
- font-weight:700;
- cursor:pointer;
-}
-
-.upload-button:hover {background:#173c30}
-
-#fileInput {display:none}
+#fileInput { display:none; }
 
 .file-list {
- display:grid;
- gap:8px;
- margin-top:12px;
+  display:grid;
+  gap:8px;
+  margin-top:12px;
 }
 
 .file-item {
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:10px;
- padding:10px 12px;
- border:1px solid var(--border);
- background:#111d2d;
- border-radius:9px;
- font-size:12px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-size:12px;
+  overflow-wrap:anywhere;
 }
 
-.file-name {
- overflow-wrap:anywhere;
- color:#dce7f8;
+.remove {
+  background:transparent;
+  color:var(--red);
+  border:0;
+  font-size:18px;
 }
 
-.file-size {color:var(--muted);font-size:10px}
-
-.remove-file {
- background:transparent;
- color:var(--danger);
- border:0;
- font-size:17px;
- padding:4px 8px;
+.hint {
+  color:var(--muted);
+  font-size:10px;
+  margin-top:9px;
 }
 
-.actions {
- display:flex;
- gap:11px;
- flex-wrap:wrap;
- margin-top:20px;
+.actions,.result-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
 }
 
-.primary,.secondary {
- border:0;
- border-radius:10px;
- padding:13px 19px;
- font-size:13px;
- font-weight:800;
- transition:.2s;
+button {
+  border:0;
+  border-radius:9px;
+  padding:12px 17px;
+  font-weight:750;
+  font-size:12px;
 }
 
 .primary {
- background:linear-gradient(135deg,#65edb1,#32bb89);
- color:#061b13;
- box-shadow:0 5px 20px #35c58b22;
+  background:linear-gradient(135deg,#65edb1,#32bb89);
+  color:#061b13;
 }
 
-.primary:hover {transform:translateY(-1px);filter:brightness(1.08)}
-.primary:disabled {opacity:.5;cursor:wait;transform:none}
+.primary:disabled {
+  opacity:.5;
+  cursor:wait;
+}
 
 .secondary {
- background:#253650;
- color:#dce8fa;
- border:1px solid #344967;
+  background:#253650;
+  color:var(--text);
+  border:1px solid #3a506d;
 }
 
-.secondary:hover {background:#304461}
-
-#resultSection {display:none;margin-top:25px}
-
-.result-top {
- display:flex;
- justify-content:space-between;
- align-items:center;
- flex-wrap:wrap;
- gap:12px;
- margin-bottom:12px;
+#resultSection {
+  display:none;
+  margin-top:25px;
 }
 
-.result-label {
- font-weight:800;
- font-size:14px;
-}
-
-.result-status {
- color:var(--green);
- font-size:11px;
+.result-heading {
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+  font-size:13px;
+  font-weight:800;
 }
 
 #result {
- margin:0;
- padding:20px;
- background:#070d17;
- border:1px solid #26364e;
- border-radius:12px;
- color:#dce8fa;
- white-space:pre-wrap;
- overflow-wrap:anywhere;
- overflow-x:auto;
- min-height:130px;
- max-height:650px;
- overflow-y:auto;
- font-family:Consolas,Monaco,monospace;
- font-size:13px;
- line-height:1.75;
- tab-size:4;
-}
-
-.result-actions {
- display:flex;
- gap:9px;
- flex-wrap:wrap;
- margin-top:12px;
-}
-
-.result-actions button {
- flex:1;
- min-width:115px;
+  min-height:120px;
+  max-height:600px;
+  overflow:auto;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  background:#070d17;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:17px;
+  color:#dce8fa;
+  font:13px/1.7 Consolas,monospace;
 }
 
 #notice {
- min-height:20px;
- margin-top:10px;
- font-size:12px;
- color:var(--green);
+  margin-top:12px;
+  font-size:12px;
+  line-height:1.6;
+  color:var(--green);
+  overflow-wrap:anywhere;
 }
 
-#notice.error {color:var(--danger)}
+#notice.error { color:var(--red); }
 
 .tips {
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:13px;
- margin-top:25px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:22px;
 }
 
 .tip {
- border:1px solid var(--border);
- border-radius:12px;
- padding:17px;
- background:#101a2a;
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:var(--panel);
 }
 
-.tip-icon {font-size:19px}
-.tip strong {display:block;font-size:12px;margin:9px 0 5px}
-.tip p {color:var(--muted);font-size:11px;line-height:1.6;margin:0}
+.tip strong { font-size:12px; }
+
+.tip p {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
 
 footer {
- border-top:1px solid var(--border);
- text-align:center;
- color:var(--muted);
- font-size:11px;
- padding:25px;
+  text-align:center;
+  padding:25px;
+  color:var(--muted);
+  font-size:11px;
+  border-top:1px solid var(--border);
 }
 
 @media(max-width:650px) {
- header {height:64px;padding:0 17px}
- .brand {font-size:16px}
- .header-right {font-size:10px}
- .layout {padding:38px 13px 50px}
- .workspace-body {padding:16px}
- .workspace-top {padding:15px}
- .tips {grid-template-columns:1fr}
- .actions button {flex:1}
- h1 {letter-spacing:-1.2px}
+  header { padding:15px; }
+  main { margin-top:32px; }
+  .body { padding:15px; }
+  .top { padding:15px; }
+  .tips { grid-template-columns:1fr; }
+  .actions button { flex:1; }
 }
 </style>
 </head>
@@ -425,426 +338,463 @@ footer {
 <body>
 
 <header>
- <div class="brand">
-  <div class="brand-icon">⚒</div>
-  CodeForge <span>AI</span>
- </div>
- <div class="header-right">
-  <span class="online-dot"></span>
-  ENGINEERING WORKSPACE
- </div>
+  <div class="brand">⚒ CodeForge <span>AI</span></div>
+  <div class="status">● ENGINEERING WORKSPACE</div>
 </header>
 
-<main class="layout">
+<main>
 
- <section class="hero">
-  <div class="eyebrow">Your AI development environment</div>
+<section class="hero">
+  <div class="eyebrow">YOUR AI DEVELOPMENT ENVIRONMENT</div>
   <h1>Build. Debug. Engineer.</h1>
-  <p>
-   Turn ideas into software. Upload existing code,
-   investigate bugs and build better projects.
-  </p>
+  <p>Generate code, investigate bugs, analyse files and improve your projects.</p>
 
-  <div class="feature-row">
-   <span class="feature">✦ AI Code Generation</span>
-   <span class="feature">⌘ Code Analysis</span>
-   <span class="feature">⇧ File Uploads</span>
-   <span class="feature">⚙ Engineering Assistant</span>
+  <div class="features">
+    <span class="feature">✦ Code Generation</span>
+    <span class="feature">⌘ Code Analysis</span>
+    <span class="feature">⇧ File Uploads</span>
+    <span class="feature">⚙ Engineering Assistant</span>
   </div>
- </section>
+</section>
 
- <section class="workspace">
+<section class="workspace">
 
-  <div class="workspace-top">
-   <div>
-    <div class="section-title">Development Workspace</div>
-    <div class="section-subtitle">Create a project or work with existing files</div>
-   </div>
-   <div class="engine">● AI ENGINE</div>
+  <div class="top">
+    <div>
+      <strong>Development Workspace</strong>
+      <small>Create a project or analyse existing code</small>
+    </div>
+    <div class="engine">● AI ENGINE</div>
   </div>
 
-  <div class="workspace-body">
+  <div class="body">
 
-   <div class="field">
-    <label for="language">PROGRAMMING LANGUAGE</label>
-    <select id="language">
-     <option>Python</option>
-     <option>JavaScript</option>
-     <option>HTML/CSS/JavaScript</option>
-     <option>TypeScript</option>
-     <option>Java</option>
-     <option>C++</option>
-     <option>C</option>
-     <option>PHP</option>
-     <option>Go</option>
-     <option>Rust</option>
-     <option>SQL</option>
-     <option>Bash</option>
-     <option>Other</option>
-    </select>
-   </div>
-
-   <div class="field">
-    <label for="prompt">DESCRIBE YOUR TASK</label>
-    <textarea id="prompt"
-     placeholder="Describe what you want to build, debug, explain or improve...
-
-Example: Inspect my uploaded Python project, identify bugs, explain the problems and provide corrected code."></textarea>
-   </div>
-
-   <div class="field">
-    <label>PROJECT FILES</label>
-
-    <div class="upload-area" id="dropArea">
-     <div class="upload-icon">📁</div>
-     <strong>Drop your files here</strong>
-     <p>Or browse your device to attach source code and text files.</p>
-
-     <label class="upload-button" for="fileInput">
-      + Choose Files
-     </label>
-
-     <input
-      type="file"
-      id="fileInput"
-      multiple
-      accept=".py,.js,.ts,.html,.css,.json,.txt,.md,.java,.cpp,.c,.h,.php,.go,.rs,.sql,.sh,.yaml,.yml,.xml,.toml,.ini,.log,.env.example"
-     >
+    <div class="field">
+      <label for="language">PROGRAMMING LANGUAGE</label>
+      <select id="language">
+        <option>Python</option>
+        <option>JavaScript</option>
+        <option>HTML/CSS/JavaScript</option>
+        <option>TypeScript</option>
+        <option>Java</option>
+        <option>C++</option>
+        <option>C</option>
+        <option>PHP</option>
+        <option>Go</option>
+        <option>Rust</option>
+        <option>SQL</option>
+        <option>Bash</option>
+        <option>Other</option>
+      </select>
     </div>
 
-    <div id="fileList" class="file-list"></div>
-    <div class="section-subtitle" style="margin-top:9px">
-     Up to 5 files · 100 KB per file · Text-based files only
-    </div>
-   </div>
-
-   <div class="actions">
-    <button class="primary" id="generate" onclick="generateCode()">
-     ✦ Generate / Analyse
-    </button>
-
-    <button class="secondary" onclick="clearWorkspace()">
-     Clear Workspace
-    </button>
-   </div>
-
-   <section id="resultSection">
-
-    <div class="result-top">
-     <div class="result-label">AI RESPONSE</div>
-     <div class="result-status">● Response received</div>
+    <div class="field">
+      <label for="prompt">DESCRIBE YOUR TASK</label>
+      <textarea id="prompt"
+        maxlength="11000"
+        placeholder="Describe what you want to build, debug, explain or improve..."></textarea>
     </div>
 
-    <pre id="result"></pre>
+    <div class="field">
+      <label>PROJECT FILES</label>
+      <div class="upload" id="dropArea">
+        <div style="font-size:27px">📁</div>
+        <strong>Attach your source code</strong>
+        <p>Choose files from your device or drop them here.</p>
+        <label for="fileInput">+ Choose Files</label>
+        <input type="file" id="fileInput" multiple
+          accept=".py,.js,.ts,.html,.css,.json,.txt,.md,.java,.cpp,.c,.h,.php,.go,.rs,.sql,.sh,.yaml,.yml,.xml,.toml,.ini,.log">
+      </div>
 
-    <div class="result-actions">
-     <button class="primary" onclick="copyAll()">▣ Copy All</button>
-     <button class="secondary" onclick="downloadResult()">↓ Download</button>
+      <div id="fileList" class="file-list"></div>
+      <div class="hint">Maximum 5 text files · 100 KB per file</div>
     </div>
+
+    <div class="actions">
+      <button class="primary" id="generate">✦ Generate / Analyse</button>
+      <button class="secondary" id="clear">Clear Workspace</button>
+    </div>
+
+    <section id="resultSection">
+      <div class="result-heading">
+        <span>AI RESPONSE</span>
+        <span style="color:var(--green)">● RESULT</span>
+      </div>
+
+      <pre id="result"></pre>
+
+      <div class="result-actions">
+        <button class="primary" id="copy">▣ Copy All</button>
+        <button class="secondary" id="download">↓ Download</button>
+      </div>
+    </section>
 
     <div id="notice" role="status" aria-live="polite"></div>
 
-   </section>
-
   </div>
- </section>
+</section>
 
- <section class="tips">
-
+<section class="tips">
   <div class="tip">
-   <div class="tip-icon">⌘</div>
-   <strong>Code Generation</strong>
-   <p>Describe your application and request code in your chosen language.</p>
+    <strong>⌘ Code Generation</strong>
+    <p>Describe your application and generate code in your chosen language.</p>
   </div>
-
   <div class="tip">
-   <div class="tip-icon">⌕</div>
-   <strong>Code Investigation</strong>
-   <p>Attach existing files and ask for debugging, explanations or improvements.</p>
+    <strong>⌕ Code Investigation</strong>
+    <p>Upload existing source files for debugging and explanations.</p>
   </div>
-
   <div class="tip">
-   <div class="tip-icon">⚙</div>
-   <strong>Engineering Assistance</strong>
-   <p>Explore architecture, algorithms, testing and secure coding practices.</p>
+    <strong>⚙ Engineering Assistance</strong>
+    <p>Explore algorithms, architecture, testing and secure coding.</p>
   </div>
-
- </section>
+</section>
 
 </main>
 
-<footer>
- CodeForge AI · AI-powered software engineering workspace
-</footer>
+<footer>CodeForge AI · AI-powered software engineering workspace</footer>
 
 <script>
+"use strict";
+
+const API_URL = "/api/generate";
 const MAX_FILES = 5;
 const MAX_FILE_SIZE = 100 * 1024;
 const MAX_TOTAL_CHARS = 11000;
-const ALLOWED_EXTENSIONS = new Set([
- "py","js","ts","html","css","json","txt","md",
- "java","cpp","c","h","php","go","rs","sql",
- "sh","yaml","yml","xml","toml","ini","log"
+const REQUEST_TIMEOUT = 90000;
+
+const ALLOWED = new Set([
+  "py","js","ts","html","css","json","txt","md",
+  "java","cpp","c","h","php","go","rs","sql",
+  "sh","yaml","yml","xml","toml","ini","log"
 ]);
 
-let selectedFiles = [];
-let generatedCode = "";
-
+const promptInput = document.getElementById("prompt");
+const languageInput = document.getElementById("language");
 const fileInput = document.getElementById("fileInput");
-const dropArea = document.getElementById("dropArea");
 const fileList = document.getElementById("fileList");
+const dropArea = document.getElementById("dropArea");
+const generateButton = document.getElementById("generate");
 const resultSection = document.getElementById("resultSection");
 const result = document.getElementById("result");
 const notice = document.getElementById("notice");
-const generateButton = document.getElementById("generate");
 
-function showNotice(message, isError=false) {
- notice.textContent = message;
- notice.classList.toggle("error", isError);
-}
+let selectedFiles = [];
+let generatedCode = "";
+let requestController = null;
 
-function formatSize(bytes) {
- return bytes < 1024
-  ? bytes + " B"
-  : (bytes / 1024).toFixed(1) + " KB";
+function showNotice(message, error = false) {
+  notice.textContent = message;
+  notice.classList.toggle("error", error);
 }
 
 function renderFiles() {
- fileList.innerHTML = "";
+  fileList.replaceChildren();
 
- selectedFiles.forEach((file,index) => {
-  const item = document.createElement("div");
-  item.className = "file-item";
+  selectedFiles.forEach((file, index) => {
+    const item = document.createElement("div");
+    item.className = "file-item";
 
-  const details = document.createElement("div");
-  details.style.minWidth = "0";
+    const name = document.createElement("span");
+    name.textContent = file.name + " (" +
+      (file.size / 1024).toFixed(1) + " KB)";
 
-  const name = document.createElement("div");
-  name.className = "file-name";
-  name.textContent = "📄 " + file.name;
+    const remove = document.createElement("button");
+    remove.className = "remove";
+    remove.type = "button";
+    remove.textContent = "×";
+    remove.setAttribute("aria-label", "Remove " + file.name);
 
-  const size = document.createElement("div");
-  size.className = "file-size";
-  size.textContent = formatSize(file.size);
+    remove.addEventListener("click", () => {
+      selectedFiles.splice(index, 1);
+      renderFiles();
+    });
 
-  details.append(name,size);
-
-  const remove = document.createElement("button");
-  remove.className = "remove-file";
-  remove.type = "button";
-  remove.textContent = "×";
-  remove.setAttribute("aria-label","Remove " + file.name);
-  remove.onclick = () => {
-   selectedFiles.splice(index,1);
-   renderFiles();
-  };
-
-  item.append(details,remove);
-  fileList.appendChild(item);
- });
+    item.append(name, remove);
+    fileList.appendChild(item);
+  });
 }
 
 async function addFiles(files) {
- for (const file of files) {
+  for (const file of files) {
+    if (selectedFiles.length >= MAX_FILES) {
+      showNotice("You can attach a maximum of 5 files.", true);
+      break;
+    }
 
-  if (selectedFiles.length >= MAX_FILES) {
-   showNotice("Maximum of 5 files allowed.",true);
-   break;
+    const extension = file.name.includes(".")
+      ? file.name.split(".").pop().toLowerCase()
+      : "";
+
+    if (!ALLOWED.has(extension)) {
+      showNotice("Unsupported file type: " + file.name, true);
+      continue;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      showNotice(file.name + " exceeds the 100 KB limit.", true);
+      continue;
+    }
+
+    if (selectedFiles.some(f => f.name === file.name)) {
+      showNotice(file.name + " is already attached.", true);
+      continue;
+    }
+
+    try {
+      const content = await file.text();
+
+      if (content.includes("\u0000")) {
+        showNotice("Binary files are not supported.", true);
+        continue;
+      }
+
+      selectedFiles.push({
+        name: file.name,
+        size: file.size,
+        content
+      });
+    } catch {
+      showNotice("Could not read " + file.name, true);
+    }
   }
 
-  const extension = file.name.split(".").pop().toLowerCase();
-
-  if (!ALLOWED_EXTENSIONS.has(extension)) {
-   showNotice("Unsupported file type: " + file.name,true);
-   continue;
-  }
-
-  if (file.size > MAX_FILE_SIZE) {
-   showNotice(file.name + " exceeds the 100 KB limit.",true);
-   continue;
-  }
-
-  if (selectedFiles.some(item => item.name === file.name)) {
-   showNotice(file.name + " is already attached.",true);
-   continue;
-  }
-
-  try {
-   const content = await file.text();
-
-   if (content.includes("\u0000")) {
-    showNotice("Binary files are not supported: " + file.name,true);
-    continue;
-   }
-
-   selectedFiles.push({
-    name:file.name,
-    size:file.size,
-    content
-   });
-
-  } catch {
-   showNotice("Could not read " + file.name,true);
-  }
- }
-
- renderFiles();
+  renderFiles();
 }
 
 fileInput.addEventListener("change", async event => {
- await addFiles(Array.from(event.target.files));
- fileInput.value = "";
+  await addFiles(Array.from(event.target.files || []));
+  fileInput.value = "";
 });
 
 dropArea.addEventListener("dragover", event => {
- event.preventDefault();
- dropArea.classList.add("dragging");
+  event.preventDefault();
+  dropArea.style.borderColor = "var(--green)";
 });
 
 dropArea.addEventListener("dragleave", () => {
- dropArea.classList.remove("dragging");
+  dropArea.style.borderColor = "";
 });
 
 dropArea.addEventListener("drop", async event => {
- event.preventDefault();
- dropArea.classList.remove("dragging");
- await addFiles(Array.from(event.dataTransfer.files));
+  event.preventDefault();
+  dropArea.style.borderColor = "";
+  await addFiles(Array.from(event.dataTransfer.files || []));
 });
 
-async function generateCode() {
- const prompt = document.getElementById("prompt").value.trim();
- const language = document.getElementById("language").value;
+function buildPrompt() {
+  let combined = promptInput.value.trim();
 
- if (prompt.length < 3) {
-  showNotice("Please describe your task in at least 3 characters.",true);
-  return;
- }
-
- let combinedPrompt = prompt;
-
- if (selectedFiles.length) {
-  combinedPrompt += "\n\nATTACHED PROJECT FILES:\n";
-
-  for (const file of selectedFiles) {
-   combinedPrompt +=
-    "\n--- FILE: " + file.name + " ---\n" +
-    file.content + "\n";
-  }
- }
-
- if (combinedPrompt.length > MAX_TOTAL_CHARS) {
-  showNotice(
-   "The combined prompt and files are too large. Remove some files or shorten the prompt.",
-   true
-  );
-  return;
- }
-
- generateButton.disabled = true;
- generateButton.textContent = "Analysing...";
- generatedCode = "";
-
- resultSection.style.display = "block";
- result.textContent = "Connecting to CodeForge AI...";
- showNotice("");
-
- try {
-  const response = await fetch("/api/generate", {
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({
-    prompt:combinedPrompt,
-    language
-   })
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-   throw new Error(data.detail || "Generation failed.");
+  if (combined.length < 3) {
+    throw new Error("Describe your task using at least 3 characters.");
   }
 
-  if (typeof data.generated_code !== "string") {
-   throw new Error("Invalid response from AI provider.");
+  if (selectedFiles.length) {
+    combined += "\n\nATTACHED PROJECT FILES:\n";
+
+    for (const file of selectedFiles) {
+      combined += "\n--- FILE: " + file.name + " ---\n";
+      combined += file.content + "\n";
+    }
   }
 
-  generatedCode = data.generated_code;
-  result.textContent = generatedCode;
+  if (combined.length > MAX_TOTAL_CHARS) {
+    throw new Error(
+      "Your prompt and files exceed the 11,000-character limit. Remove files or shorten your prompt."
+    );
+  }
 
-  showNotice("✓ AI response received successfully.");
-
- } catch(error) {
-  result.textContent = "Error: " + error.message;
-  showNotice(error.message,true);
-
- } finally {
-  generateButton.disabled = false;
-  generateButton.textContent = "✦ Generate / Analyse";
- }
+  return combined;
 }
 
-async function copyAll() {
- if (!generatedCode) {
-  showNotice("There is no generated response to copy.",true);
-  return;
- }
+async function readResponse(response) {
+  const raw = await response.text();
+  const contentType = response.headers.get("content-type") || "";
 
- try {
-  if (navigator.clipboard && window.isSecureContext) {
-   await navigator.clipboard.writeText(generatedCode);
-  } else {
-   const temporary = document.createElement("textarea");
-   temporary.value = generatedCode;
-   temporary.style.position = "fixed";
-   temporary.style.opacity = "0";
-   document.body.appendChild(temporary);
-   temporary.select();
-
-   const success = document.execCommand("copy");
-   temporary.remove();
-
-   if (!success) throw new Error("Copy failed");
+  if (!contentType.toLowerCase().includes("application/json")) {
+    throw new Error(
+      "The server returned a non-JSON response (HTTP " +
+      response.status + "). Check the backend route and deployment."
+    );
   }
 
-  showNotice("✓ Complete response copied!");
+  let data;
 
- } catch {
-  showNotice("Copy failed. Try selecting the response manually.",true);
- }
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    throw new Error("The server returned invalid JSON.");
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || "Request failed with HTTP " + response.status
+    );
+  }
+
+  return data;
+}
+
+async function generateCode() {
+  if (requestController) return;
+
+  let combinedPrompt;
+
+  try {
+    combinedPrompt = buildPrompt();
+  } catch (error) {
+    showNotice(error.message, true);
+    return;
+  }
+
+  if (!navigator.onLine) {
+    showNotice("Your device appears to be offline. Check your internet connection.", true);
+    return;
+  }
+
+  requestController = new AbortController();
+  const controller = requestController;
+
+  const timeout = setTimeout(() => {
+    controller.abort("timeout");
+  }, REQUEST_TIMEOUT);
+
+  generateButton.disabled = true;
+  generateButton.textContent = "Generating...";
+  generatedCode = "";
+  resultSection.style.display = "block";
+  result.textContent = "Connecting to CodeForge AI...";
+  showNotice("Sending your request...");
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        prompt: combinedPrompt,
+        language: languageInput.value
+      }),
+      signal: controller.signal,
+      cache: "no-store"
+    });
+
+    const data = await readResponse(response);
+
+    if (typeof data.generated_code !== "string") {
+      throw new Error("The AI response did not contain generated code.");
+    }
+
+    generatedCode = data.generated_code;
+    result.textContent = generatedCode;
+    showNotice("✓ Response received successfully.");
+
+  } catch (error) {
+    let message;
+
+    if (error.name === "AbortError") {
+      message = "The request timed out or was cancelled. Try again.";
+    } else if (!navigator.onLine || error instanceof TypeError) {
+      message = "Network request failed. Check your internet connection and reload the website. If your connection works, inspect the browser's request error and Render logs.";
+    } else {
+      message = error.message || "An unexpected error occurred.";
+    }
+
+    result.textContent = "Error: " + message;
+    showNotice(message, true);
+
+  } finally {
+    clearTimeout(timeout);
+
+    if (requestController === controller) {
+      requestController = null;
+    }
+
+    generateButton.disabled = false;
+    generateButton.textContent = "✦ Generate / Analyse";
+  }
+}
+
+async function copyResult() {
+  if (!generatedCode) {
+    showNotice("There is no response to copy.", true);
+    return;
+  }
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(generatedCode);
+    } else {
+      const temporary = document.createElement("textarea");
+      temporary.value = generatedCode;
+      temporary.style.position = "fixed";
+      temporary.style.opacity = "0";
+      document.body.appendChild(temporary);
+      temporary.select();
+
+      const copied = document.execCommand("copy");
+      temporary.remove();
+
+      if (!copied) throw new Error("Copy failed.");
+    }
+
+    showNotice("✓ Response copied successfully.");
+  } catch {
+    showNotice("Copy failed. Select the response and copy it manually.", true);
+  }
 }
 
 function downloadResult() {
- if (!generatedCode) return;
+  if (!generatedCode) {
+    showNotice("There is no response to download.", true);
+    return;
+  }
 
- const blob = new Blob([generatedCode], {
-  type:"text/plain;charset=utf-8"
- });
+  const blob = new Blob([generatedCode], {
+    type: "text/plain;charset=utf-8"
+  });
 
- const url = URL.createObjectURL(blob);
- const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
 
- link.href = url;
- link.download = "codeforge-response.txt";
- document.body.appendChild(link);
- link.click();
- link.remove();
+  link.href = url;
+  link.download = "codeforge-response.txt";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 
- setTimeout(() => URL.revokeObjectURL(url),1000);
- showNotice("Download started.");
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+  showNotice("Download started.");
 }
 
 function clearWorkspace() {
- document.getElementById("prompt").value = "";
- selectedFiles = [];
- generatedCode = "";
+  if (requestController) {
+    requestController.abort();
+  }
 
- renderFiles();
+  promptInput.value = "";
+  selectedFiles = [];
+  generatedCode = "";
 
- result.textContent = "";
- resultSection.style.display = "none";
-
- showNotice("");
+  renderFiles();
+  result.textContent = "";
+  resultSection.style.display = "none";
+  showNotice("");
 }
+
+generateButton.addEventListener("click", generateCode);
+document.getElementById("copy").addEventListener("click", copyResult);
+document.getElementById("download").addEventListener("click", downloadResult);
+document.getElementById("clear").addEventListener("click", clearWorkspace);
+
+window.addEventListener("online", () => {
+  showNotice("Internet connection restored.");
+});
+
+window.addEventListener("offline", () => {
+  showNotice("You are offline. Generation is unavailable.", true);
+});
 </script>
 
 </body>
